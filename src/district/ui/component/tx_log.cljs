@@ -150,21 +150,20 @@
                     :as props}]
   (let [{:keys [:tx-log]} tx
         {:keys [:related-href]} tx-log]
-    [:a.transaction
-     (merge
-      {:href related-href
-       :on-click #(dispatch [::events/set-open false])}
-      (dissoc props
-              :tx :tx-name-props :tx-name-el
-              :tx-created-on-props :tx-created-on-el
-              :tx-gas-props :tx-gas-el
-              :tx-from-props :tx-from-el
-              :tx-id-props :tx-id-el
-              :tx-status-props :tx-status-el
-              :tx-value-props :tx-value-el
-              :tx-remove-props :tx-remove-el
-              :tx-cost-currency))
-     [tx-name-el (assoc tx-name-props :tx tx)]
+    [:div.transaction
+     (dissoc props
+             :tx :tx-name-props :tx-name-el
+             :tx-created-on-props :tx-created-on-el
+             :tx-gas-props :tx-gas-el
+             :tx-from-props :tx-from-el
+             :tx-id-props :tx-id-el
+             :tx-status-props :tx-status-el
+             :tx-value-props :tx-value-el
+             :tx-remove-props :tx-remove-el
+             :tx-cost-currency)
+     [:a {:href related-href
+          :on-click #(dispatch [::events/set-open false])}
+      [tx-name-el (assoc tx-name-props :tx tx)]]
      [tx-created-on-el (assoc tx-created-on-props :tx tx)]
      [tx-gas-el (merge tx-gas-props (select-keys props [:tx :tx-cost-currency]))]
      [tx-from-el (assoc tx-from-props :tx tx)]
